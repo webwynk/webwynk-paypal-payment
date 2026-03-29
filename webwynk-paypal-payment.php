@@ -1,5 +1,12 @@
 <?php
-/* Plugin Name: Webwynk Paypal Payment Description: Advanced PayPal Smart Payment Form with SaaS UI Version: 1.0 */
+/*
+Plugin Name: Webwynk Paypal Payment
+Plugin URI: https://webwynk.com
+Description: Advanced PayPal Smart Payment Form with SaaS UI
+Version: 1.0
+Author: Webwynk
+Author URI: https://webwynk.com
+*/
 
 if (!defined('ABSPATH'))
     exit;
