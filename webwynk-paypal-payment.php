@@ -1,11 +1,8 @@
 <?php
-/*
-Plugin Name: WebWynk Paypal Payment
-Description: Advanced PayPal Smart Payment Form with SaaS UI
-Version: 1.0
-*/
+/* Plugin Name: Webwynk Paypal Payment Description: Advanced PayPal Smart Payment Form with SaaS UI Version: 1.0 */
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 // Activation Hook
 register_activation_hook(__FILE__, function () {
@@ -29,7 +26,8 @@ register_activation_hook(__FILE__, function () {
 
 // Enqueue Admin Scripts
 add_action('admin_enqueue_scripts', function ($hook) {
-    if (strpos($hook, 'paypal-form') === false) return;
+    if (strpos($hook, 'paypal-form') === false)
+        return;
     wp_enqueue_style('webwynk-admin-style', plugin_dir_url(__FILE__) . 'assets/css/admin-style.css');
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 });
@@ -47,20 +45,21 @@ add_action('admin_menu', function () {
 });
 
 // Dashboard Page
-function paypal_dashboard_page() {
+function paypal_dashboard_page()
+{
     $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'overview';
     $client_id = get_option('paypal_client_id');
     $is_connected = !empty($client_id);
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'paypal_payments';
-    
+
     // Stats
     $total_payments = $wpdb->get_var("SELECT SUM(amount) FROM $table_name") ?: 0;
     $transaction_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name") ?: 0;
     $currency = get_option('paypal_currency', 'USD');
 
-    ?>
+?>
     <div class="wpp-dashboard">
         <div class="wpp-header">
             <h1>WebWynk PayPal Dashboard</h1>
@@ -97,9 +96,9 @@ function paypal_dashboard_page() {
 
                 <div class="wpp-card">
                     <div class="wpp-card-title">Recent Activity</div>
-                    <?php 
-                    $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY payment_time DESC LIMIT 5");
-                    if ($results): ?>
+                    <?php
+        $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY payment_time DESC LIMIT 5");
+        if ($results): ?>
                         <table class="wpp-table">
                             <thead>
                                 <tr>
@@ -115,20 +114,24 @@ function paypal_dashboard_page() {
                                         <td><?php echo esc_html($row->name); ?><br><small><?php echo esc_html($row->email); ?></small></td>
                                         <td><strong><?php echo esc_html($currency) . ' ' . number_format($row->amount, 2); ?></strong></td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php
+            endforeach; ?>
                             </tbody>
                         </table>
-                    <?php else: ?>
+                    <?php
+        else: ?>
                         <p>No transactions recorded yet.</p>
-                    <?php endif; ?>
+                    <?php
+        endif; ?>
                 </div>
 
-            <?php elseif ($active_tab == 'transactions'): ?>
+            <?php
+    elseif ($active_tab == 'transactions'): ?>
                 <div class="wpp-card">
                     <div class="wpp-card-title">All Transactions</div>
-                    <?php 
-                    $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY payment_time DESC");
-                    if ($results): ?>
+                    <?php
+        $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY payment_time DESC");
+        if ($results): ?>
                         <table class="wpp-table">
                             <thead>
                                 <tr>
@@ -148,21 +151,25 @@ function paypal_dashboard_page() {
                                         <td><?php echo esc_html($row->phone); ?></td>
                                         <td><?php echo esc_html($currency) . ' ' . number_format($row->amount, 2); ?></td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php
+            endforeach; ?>
                             </tbody>
                         </table>
-                    <?php else: ?>
+                    <?php
+        else: ?>
                         <p>No transactions found.</p>
-                    <?php endif; ?>
+                    <?php
+        endif; ?>
                 </div>
 
-            <?php elseif ($active_tab == 'settings'): ?>
+            <?php
+    elseif ($active_tab == 'settings'): ?>
                 <div class="wpp-card">
                     <div class="wpp-card-title">PayPal Settings</div>
                     <form method="post" action="options.php">
                         <?php
-                        settings_fields('paypal_settings_group');
-                        ?>
+        settings_fields('paypal_settings_group');
+?>
                         <div class="wpp-form-group">
                             <label>Business Email</label>
                             <input type='email' name='paypal_email' value='<?php echo esc_attr(get_option('paypal_email')); ?>' />
@@ -191,7 +198,8 @@ function paypal_dashboard_page() {
                         <?php submit_button('Save Configuration', 'wpp-save-btn'); ?>
                     </form>
                 </div>
-            <?php endif; ?>
+            <?php
+    endif; ?>
         </div>
     </div>
     <?php
@@ -216,68 +224,70 @@ add_shortcode('paypal_form', function () {
     }
 
     ob_start();
-    ?>
+?>
 
-    <div class="wpp-form-container">
-        <div class="wpp-form-header">
-            <h2>Complete Payment</h2>
-            <p>Secure & Fast Checkout</p>
-        </div>
-
-        <div class="wpp-progress-bar-container">
-            <div class="wpp-progress-bar" id="wpp-progress-bar"></div>
-        </div>
-
-        <div class="wpp-step-indicator">
-            <div class="wpp-step-dot wpp-active" id="wpp-dot-1"></div>
-            <div class="wpp-step-dot" id="wpp-dot-2"></div>
-        </div>
-
-        <form id="wpp-paypal-form">
-            <!-- Step 1: User Details -->
-            <div class="wpp-form-step wpp-active" id="wpp-step-1">
-                <div class="wpp-input-group">
-                    <label>Full Name</label>
-                    <input type="text" name="custom_name" placeholder="John Doe" required>
-                </div>
-                <div class="wpp-input-group">
-                    <label>Email Address</label>
-                    <input type="email" name="custom_email" placeholder="john@example.com" required>
-                </div>
-                <div class="wpp-input-group">
-                    <label>Phone Number</label>
-                    <input type="text" name="custom_phone" placeholder="+1 234 567 890" required>
-                </div>
-                <div class="wpp-input-group">
-                    <label>Amount (<?php echo esc_html($currency); ?>)</label>
-                    <input type="number" name="amount" placeholder="10.00" step="0.01" required>
-                </div>
-                <button type="button" class="wpp-next-btn" id="wpp-to-step-2">Continue to Payment</button>
+    <div class="wpp-plugin-wrapper">
+        <div class="wpp-form-container">
+            <div class="wpp-form-header">
+                <h2>Complete Payment</h2>
+                <p>Secure & Fast Checkout</p>
             </div>
 
-            <!-- Step 2: Payment Options -->
-            <div class="wpp-form-step" id="wpp-step-2">
-                <div class="wpp-payment-summary">
-                    <div class="wpp-summary-header">Order Summary</div>
-                    <div class="wpp-summary-item">
-                        <span>Customer:</span>
-                        <span id="wpp-summary-name">-</span>
+            <div class="wpp-progress-bar-container">
+                <div class="wpp-progress-bar" id="wpp-progress-bar"></div>
+            </div>
+
+            <div class="wpp-step-indicator">
+                <div class="wpp-step-dot wpp-active" id="wpp-dot-1"></div>
+                <div class="wpp-step-dot" id="wpp-dot-2"></div>
+            </div>
+
+            <form id="wpp-paypal-form">
+                <!-- Step 1: User Details -->
+                <div class="wpp-form-step wpp-active" id="wpp-step-1">
+                    <div class="wpp-input-group">
+                        <label>Full Name</label>
+                        <input type="text" name="custom_name" placeholder="John Doe" required>
                     </div>
-                    <div class="wpp-summary-item">
-                        <span>Email:</span>
-                        <span id="wpp-summary-email">-</span>
+                    <div class="wpp-input-group">
+                        <label>Email Address</label>
+                        <input type="email" name="custom_email" placeholder="john@example.com" required>
                     </div>
-                    <div class="wpp-summary-total">
-                        <span>Total:</span>
-                        <span id="wpp-summary-amount">0.00</span> <span><?php echo esc_html($currency); ?></span>
+                    <div class="wpp-input-group">
+                        <label>Phone Number</label>
+                        <input type="text" name="custom_phone" placeholder="+1 234 567 890" required>
                     </div>
+                    <div class="wpp-input-group">
+                        <label>Amount (<?php echo esc_html($currency); ?>)</label>
+                        <input type="number" name="amount" placeholder="10.00" step="0.01" required>
+                    </div>
+                    <button type="button" class="wpp-next-btn" id="wpp-to-step-2">Continue to Payment</button>
                 </div>
 
-                <div id="wpp-paypal-button-container"></div>
-                
-                <button type="button" class="wpp-back-btn" id="wpp-back-to-step-1">Back to Details</button>
-            </div>
-        </form>
+                <!-- Step 2: Payment Options -->
+                <div class="wpp-form-step" id="wpp-step-2">
+                    <div class="wpp-payment-summary">
+                        <div class="wpp-summary-header">Order Summary</div>
+                        <div class="wpp-summary-item">
+                            <span>Customer:</span>
+                            <span id="wpp-summary-name">-</span>
+                        </div>
+                        <div class="wpp-summary-item">
+                            <span>Email:</span>
+                            <span id="wpp-summary-email">-</span>
+                        </div>
+                        <div class="wpp-summary-total">
+                            <span>Total:</span>
+                            <span id="wpp-summary-amount">0.00</span> <span><?php echo esc_html($currency); ?></span>
+                        </div>
+                    </div>
+
+                    <div id="wpp-paypal-button-container"></div>
+                    
+                    <button type="button" class="wpp-back-btn" id="wpp-back-to-step-1">Back to Details</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="https://www.paypal.com/sdk/js?client-id=<?php echo esc_attr($client_id); ?>&currency=<?php echo esc_attr($currency); ?>"></script>
@@ -290,18 +300,19 @@ add_shortcode('paypal_form', function () {
 add_action('wp_ajax_save_payment', 'save_payment_data');
 add_action('wp_ajax_nopriv_save_payment', 'save_payment_data');
 
-function save_payment_data() {
+function save_payment_data()
+{
     global $wpdb;
     $table_name = $wpdb->prefix . 'paypal_payments';
 
     $wpdb->insert(
         $table_name,
-        [
-            'name' => sanitize_text_field($_POST['name']),
-            'email' => sanitize_email($_POST['email']),
-            'phone' => sanitize_text_field($_POST['phone']),
-            'amount' => floatval($_POST['amount']),
-        ]
+    [
+        'name' => sanitize_text_field($_POST['name']),
+        'email' => sanitize_email($_POST['email']),
+        'phone' => sanitize_text_field($_POST['phone']),
+        'amount' => floatval($_POST['amount']),
+    ]
     );
 
     wp_send_json_success();
