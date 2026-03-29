@@ -244,7 +244,7 @@ add_shortcode('paypal_form', function () {
                     <div class="wpp-trust-badges">
                         <div class="wpp-trust-item">
                             <div class="wpp-trust-icon">
-                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                             </div>
                             <div class="wpp-trust-text">
                                 <strong>Secure Checkout</strong>
@@ -253,7 +253,7 @@ add_shortcode('paypal_form', function () {
                         </div>
                         <div class="wpp-trust-item">
                             <div class="wpp-trust-icon">
-                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                             </div>
                             <div class="wpp-trust-text">
                                 <strong>Instant Activation</strong>
@@ -297,6 +297,7 @@ add_shortcode('paypal_form', function () {
 
                         <!-- Step 2: Payment Options -->
                         <div class="wpp-form-step" id="wpp-step-2">
+                            <h3 class="wpp-step-title">Payment Details</h3>
                             <div class="wpp-payment-summary">
                                 <div class="wpp-summary-header">Order Summary</div>
                                 <div class="wpp-summary-item">
@@ -309,13 +310,15 @@ add_shortcode('paypal_form', function () {
                                 </div>
                                 <div class="wpp-summary-total">
                                     <span>Total Amount:</span>
-                                    <span id="wpp-summary-amount">0.00</span> <span><?php echo esc_html($currency); ?></span>
+                                    <div class="wpp-amount-box">
+                                        <span id="wpp-summary-amount">0.00</span> <span class="wpp-currency"><?php echo esc_html($currency); ?></span>
+                                    </div>
                                 </div>
                             </div>
 
                             <div id="wpp-paypal-button-container"></div>
                             
-                            <button type="button" class="wpp-back-btn" id="wpp-back-to-step-1">Go Back</button>
+                            <button type="button" class="wpp-back-btn" id="wpp-back-to-step-1">Change details</button>
                         </div>
                     </form>
                 </div>

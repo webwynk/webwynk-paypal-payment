@@ -30,37 +30,39 @@
 }
 
 .wpp-main-title {
-    font-size: 42px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin: 0 0 20px 0;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0 0 24px 0;
     letter-spacing: -1.5px;
+    color: #1b232d; /* Solid dark blue-grey matching reference */
 }
 
 .wpp-main-desc {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
-    color: var(--wpp-text-muted);
+    color: #556070; /* Muted color from reference */
     margin-bottom: 40px;
+    max-width: 90%;
 }
 
 .wpp-trust-badges {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 .wpp-trust-item {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
 }
 
 .wpp-trust-icon {
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    background: #15171e; /* Deep dark squircle background */
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,13 +71,15 @@
 
 .wpp-trust-text strong {
     display: block;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
     margin-bottom: 2px;
 }
 
 .wpp-trust-text span {
-    font-size: 13px;
-    color: var(--wpp-text-muted);
+    font-size: 14px;
+    color: #5e6b7d;
 }
 
 /* Right Panel */
@@ -160,6 +164,13 @@
     background: rgba(255, 255, 255, 0.06);
 }
 
+.wpp-step-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: var(--wpp-text-main);
+}
+
 .wpp-payment-summary {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--wpp-border);
@@ -169,7 +180,7 @@
 }
 
 .wpp-summary-header {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
     color: var(--wpp-primary);
     text-transform: uppercase;
@@ -180,27 +191,39 @@
 .wpp-summary-item {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 15px;
 }
 
 .wpp-summary-item span:first-child {
-    color: var(--wpp-text-muted);
+    color: #5e6b7d;
 }
 
 .wpp-summary-total {
     border-top: 1px solid var(--wpp-border);
-    margin-top: 15px;
-    padding-top: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.wpp-amount-box {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
 #wpp-summary-amount {
-    font-size: 24px;
-    font-weight: 800;
+    font-size: 32px;
+    font-weight: 900;
     color: var(--wpp-text-main);
+}
+
+.wpp-currency {
+    font-size: 14px;
+    font-weight: 700;
+    color: #5e6b7d;
 }
 
 .wpp-next-btn, .wpp-back-btn {
