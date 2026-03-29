@@ -1,123 +1,132 @@
 :root {
-    --wpp-glass-bg: rgba(255, 255, 255, 0.08);
-    --wpp-glass-border: rgba(255, 255, 255, 0.2);
-    --wpp-glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    --wpp-bg-dark: #0f1117;
+    --wpp-card-dark: #1a1c24;
+    --wpp-input-bg: rgba(255, 255, 255, 0.03);
     --wpp-primary: #ff512a;
-    --wpp-accent: #8169f1;
-    --wpp-primary-hover: #e04520;
-    --wpp-text-light: #ffffff;
-    --wpp-text-dim: rgba(255, 255, 255, 0.7);
+    --wpp-primary-rgb: 255, 81, 42;
+    --wpp-text-main: #ffffff;
+    --wpp-text-muted: #94a3b8;
+    --wpp-border: rgba(255, 255, 255, 0.08);
 }
 
 .wpp-plugin-wrapper {
-    background: #0f0c29;
-    background: radial-gradient(circle at top left, #24243e, #1a1a2e), 
-                radial-gradient(circle at bottom right, #302b63, #0f0c29);
+    background: var(--wpp-bg-dark);
     font-family: 'Inter', sans-serif;
-    padding: 80px 20px;
-    border-radius: 20px;
-    overflow: hidden;
+    padding: 60px 20px;
+    color: var(--wpp-text-main);
+}
+
+.wpp-split-layout {
     display: flex;
-    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 60px;
     align-items: center;
 }
 
-.wpp-form-container {
-    width: 100%;
-    max-width: 480px;
-    padding: 50px 40px;
-    background: var(--wpp-glass-bg);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--wpp-glass-border);
-    border-radius: 32px;
-    box-shadow: var(--wpp-glass-shadow);
-    color: var(--wpp-text-light);
-    position: relative;
-    overflow: hidden;
+/* Left Panel */
+.wpp-info-panel {
+    flex: 1;
 }
 
-.wpp-form-container::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 81, 42, 0.05) 0%, transparent 70%);
-    pointer-events: none;
+.wpp-main-title {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+    letter-spacing: -1.5px;
 }
 
-.wpp-form-header {
-    text-align: center;
+.wpp-main-desc {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--wpp-text-muted);
     margin-bottom: 40px;
 }
 
-.wpp-form-header h2 {
-    font-size: 28px;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: -0.5px;
-    background: linear-gradient(90deg, #fff, #ff512a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.wpp-trust-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.wpp-form-header p {
+.wpp-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.wpp-trust-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wpp-primary);
+}
+
+.wpp-trust-text strong {
+    display: block;
     font-size: 15px;
-    color: var(--wpp-text-dim);
-    margin-top: 8px;
+    margin-bottom: 2px;
+}
+
+.wpp-trust-text span {
+    font-size: 13px;
+    color: var(--wpp-text-muted);
+}
+
+/* Right Panel */
+.wpp-form-panel {
+    flex: 1.2;
+}
+
+.wpp-form-container {
+    background: var(--wpp-card-dark);
+    border: 1px solid var(--wpp-border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.wpp-step-counter {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    color: var(--wpp-text-muted);
 }
 
 .wpp-progress-bar-container {
     width: 100%;
-    height: 6px;
+    height: 4px;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    margin-bottom: 25px;
+    border-radius: 2px;
+    margin-bottom: 40px;
     overflow: hidden;
 }
 
 .wpp-progress-bar {
     width: 50%;
     height: 100%;
-    background: linear-gradient(90deg, var(--wpp-primary), var(--wpp-accent));
-    box-shadow: 0 0 15px var(--wpp-primary);
-    transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.wpp-step-indicator {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 35px;
-}
-
-.wpp-step-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    transition: all 0.4s ease;
-}
-
-.wpp-step-dot.wpp-active {
     background: var(--wpp-primary);
-    transform: scale(1.4);
-    box-shadow: 0 0 12px var(--wpp-primary);
+    box-shadow: 0 0 12px rgba(var(--wpp-primary-rgb), 0.4);
+    transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .wpp-form-step {
     display: none;
-    animation: wppSlideUp 0.6s ease forwards;
+    animation: wppFadeIn 0.5s ease forwards;
 }
 
 .wpp-form-step.wpp-active {
     display: block;
 }
 
-@keyframes wppSlideUp {
-    from { opacity: 0; transform: translateY(20px); }
+@keyframes wppFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -127,135 +136,123 @@
 
 .wpp-input-group label {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--wpp-text-dim);
+    color: var(--wpp-text-main);
 }
 
 .wpp-input-group input {
     width: 100%;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    padding: 14px 18px;
+    background: var(--wpp-input-bg);
+    border: 1px solid var(--wpp-border);
+    border-radius: 12px;
     color: white;
-    font-size: 16px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 15px;
+    transition: all 0.3s ease;
     box-sizing: border-box;
 }
 
 .wpp-input-group input:focus {
     outline: none;
     border-color: var(--wpp-primary);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 20px rgba(255, 81, 42, 0.15);
-}
-
-.wpp-next-btn, .wpp-back-btn {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(90deg, var(--wpp-primary), var(--wpp-accent));
-    color: white;
-    border: none;
-    border-radius: 18px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    margin-top: 15px;
-    box-shadow: 0 10px 20px rgba(255, 81, 42, 0.2);
-}
-
-.wpp-next-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(255, 81, 42, 0.4);
-}
-
-.wpp-back-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    margin-top: 25px;
-    box-shadow: none;
-}
-
-.wpp-back-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-#wpp-paypal-button-container {
-    margin-top: 30px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .wpp-payment-summary {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--wpp-border);
     padding: 24px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    margin-bottom: 30px;
 }
 
 .wpp-summary-header {
+    font-size: 13px;
     font-weight: 800;
-    margin-bottom: 15px;
-    font-size: 14px;
+    color: var(--wpp-primary);
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--wpp-primary);
+    margin-bottom: 15px;
 }
 
 .wpp-summary-item {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 8px;
     font-size: 15px;
-    margin-bottom: 10px;
 }
 
 .wpp-summary-item span:first-child {
-    color: var(--wpp-text-dim);
+    color: var(--wpp-text-muted);
 }
 
 .wpp-summary-total {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 15px;
+    border-top: 1px solid var(--wpp-border);
     margin-top: 15px;
+    padding-top: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.wpp-summary-total span:first-child {
-    font-weight: 600;
-}
-
 #wpp-summary-amount {
     font-size: 24px;
-    font-weight: 900;
-    color: var(--wpp-primary);
+    font-weight: 800;
+    color: var(--wpp-text-main);
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-    .wpp-form-container {
-        padding: 35px 25px;
-        border-radius: 24px;
-    }
+.wpp-next-btn, .wpp-back-btn {
+    width: 100%;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--wpp-text-main);
+    border: 1px solid var(--wpp-border);
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-    .wpp-form-header h2 {
-        font-size: 22px;
-    }
+.wpp-next-btn:hover {
+    background: var(--wpp-primary);
+    border-color: var(--wpp-primary);
+    box-shadow: 0 10px 20px rgba(var(--wpp-primary-rgb), 0.2);
+}
 
-    .wpp-input-group input {
-        padding: 14px 18px;
-    }
+.wpp-back-btn {
+    background: transparent;
+    margin-top: 20px;
+    border-color: transparent;
+    color: var(--wpp-text-muted);
+}
 
-    .wpp-next-btn, .wpp-back-btn {
-        padding: 14px;
+.wpp-back-btn:hover {
+    color: var(--wpp-text-main);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+#wpp-paypal-button-container {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .wpp-split-layout {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .wpp-main-title {
+        font-size: 32px;
+    }
+    
+    .wpp-trust-badges {
+        align-items: center;
     }
 }

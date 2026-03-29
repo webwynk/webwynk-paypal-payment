@@ -234,66 +234,92 @@ add_shortcode('paypal_form', function () {
 ?>
 
     <div class="wpp-plugin-wrapper">
-        <div class="wpp-form-container">
-            <div class="wpp-form-header">
-                <h2>Complete Payment</h2>
-                <p>Secure & Fast Checkout</p>
-            </div>
-
-            <div class="wpp-progress-bar-container">
-                <div class="wpp-progress-bar" id="wpp-progress-bar"></div>
-            </div>
-
-            <div class="wpp-step-indicator">
-                <div class="wpp-step-dot wpp-active" id="wpp-dot-1"></div>
-                <div class="wpp-step-dot" id="wpp-dot-2"></div>
-            </div>
-
-            <form id="wpp-paypal-form">
-                <!-- Step 1: User Details -->
-                <div class="wpp-form-step wpp-active" id="wpp-step-1">
-                    <div class="wpp-input-group">
-                        <label>Full Name</label>
-                        <input type="text" name="custom_name" placeholder="John Doe" required>
-                    </div>
-                    <div class="wpp-input-group">
-                        <label>Email Address</label>
-                        <input type="email" name="custom_email" placeholder="john@example.com" required>
-                    </div>
-                    <div class="wpp-input-group">
-                        <label>Phone Number</label>
-                        <input type="text" name="custom_phone" placeholder="+1 234 567 890" required>
-                    </div>
-                    <div class="wpp-input-group">
-                        <label>Amount (<?php echo esc_html($currency); ?>)</label>
-                        <input type="number" name="amount" placeholder="10.00" step="0.01" required>
-                    </div>
-                    <button type="button" class="wpp-next-btn" id="wpp-to-step-2">Continue to Payment</button>
-                </div>
-
-                <!-- Step 2: Payment Options -->
-                <div class="wpp-form-step" id="wpp-step-2">
-                    <div class="wpp-payment-summary">
-                        <div class="wpp-summary-header">Order Summary</div>
-                        <div class="wpp-summary-item">
-                            <span>Customer:</span>
-                            <span id="wpp-summary-name">-</span>
-                        </div>
-                        <div class="wpp-summary-item">
-                            <span>Email:</span>
-                            <span id="wpp-summary-email">-</span>
-                        </div>
-                        <div class="wpp-summary-total">
-                            <span>Total:</span>
-                            <span id="wpp-summary-amount">0.00</span> <span><?php echo esc_html($currency); ?></span>
-                        </div>
-                    </div>
-
-                    <div id="wpp-paypal-button-container"></div>
+        <div class="wpp-split-layout">
+            <!-- Left Panel: Information -->
+            <div class="wpp-info-panel">
+                <div class="wpp-info-content">
+                    <h2 class="wpp-main-title">Complete Your Payment</h2>
+                    <p class="wpp-main-desc">Securely complete your transaction using PayPal or Credit Card. Your sensitive data is protected by industry-leading encryption.</p>
                     
-                    <button type="button" class="wpp-back-btn" id="wpp-back-to-step-1">Back to Details</button>
+                    <div class="wpp-trust-badges">
+                        <div class="wpp-trust-item">
+                            <div class="wpp-trust-icon">
+                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <div class="wpp-trust-text">
+                                <strong>Secure Checkout</strong>
+                                <span>SSL Encrypted Transaction</span>
+                            </div>
+                        </div>
+                        <div class="wpp-trust-item">
+                            <div class="wpp-trust-icon">
+                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
+                            </div>
+                            <div class="wpp-trust-text">
+                                <strong>Instant Activation</strong>
+                                <span>Get access immediately after payment</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </div>
+
+            <!-- Right Panel: Form -->
+            <div class="wpp-form-panel">
+                <div class="wpp-form-container">
+                    <div class="wpp-step-counter" id="wpp-step-counter">STEP 1 OF 2</div>
+                    
+                    <div class="wpp-progress-bar-container">
+                        <div class="wpp-progress-bar" id="wpp-progress-bar"></div>
+                    </div>
+
+                    <form id="wpp-paypal-form">
+                        <!-- Step 1: User Details -->
+                        <div class="wpp-form-step wpp-active" id="wpp-step-1">
+                            <div class="wpp-input-group">
+                                <label>Full Name</label>
+                                <input type="text" name="custom_name" placeholder="John Doe" required>
+                            </div>
+                            <div class="wpp-input-group">
+                                <label>Email Address</label>
+                                <input type="email" name="custom_email" placeholder="john@example.com" required>
+                            </div>
+                            <div class="wpp-input-group">
+                                <label>Phone Number</label>
+                                <input type="text" name="custom_phone" placeholder="+1 234 567 890" required>
+                            </div>
+                            <div class="wpp-input-group">
+                                <label>Amount (<?php echo esc_html($currency); ?>)</label>
+                                <input type="number" name="amount" placeholder="10.00" step="0.01" required>
+                            </div>
+                            <button type="button" class="wpp-next-btn" id="wpp-to-step-2">Next Step</button>
+                        </div>
+
+                        <!-- Step 2: Payment Options -->
+                        <div class="wpp-form-step" id="wpp-step-2">
+                            <div class="wpp-payment-summary">
+                                <div class="wpp-summary-header">Order Summary</div>
+                                <div class="wpp-summary-item">
+                                    <span>Customer:</span>
+                                    <span id="wpp-summary-name">-</span>
+                                </div>
+                                <div class="wpp-summary-item">
+                                    <span>Email:</span>
+                                    <span id="wpp-summary-email">-</span>
+                                </div>
+                                <div class="wpp-summary-total">
+                                    <span>Total Amount:</span>
+                                    <span id="wpp-summary-amount">0.00</span> <span><?php echo esc_html($currency); ?></span>
+                                </div>
+                            </div>
+
+                            <div id="wpp-paypal-button-container"></div>
+                            
+                            <button type="button" class="wpp-back-btn" id="wpp-back-to-step-1">Go Back</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
