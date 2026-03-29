@@ -1,0 +1,207 @@
+:root {
+    --wpp-admin-primary: #0070ba;
+    --wpp-admin-secondary: #003087;
+    --wpp-admin-text: #333;
+    --wpp-admin-bg: #f4f7f6;
+    --wpp-admin-white: #ffffff;
+    --wpp-admin-glass-bg: rgba(255, 255, 255, 0.7);
+    --wpp-admin-glass-border: rgba(255, 255, 255, 0.3);
+    --wpp-admin-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --wpp-admin-success: #28a745;
+    --wpp-admin-danger: #dc3545;
+}
+
+.wpp-dashboard {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--wpp-admin-text);
+    padding: 20px;
+    background: var(--wpp-admin-bg);
+    min-height: 100vh;
+}
+
+.wpp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.wpp-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--wpp-admin-primary);
+}
+
+.wpp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.wpp-card {
+    background: var(--wpp-admin-glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--wpp-admin-glass-border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--wpp-admin-shadow);
+    transition: transform 0.3s ease;
+}
+
+.wpp-card:hover {
+    transform: translateY(-5px);
+}
+
+.wpp-card.wpp-status-card {
+    border-left: 5px solid var(--wpp-admin-primary);
+}
+
+.wpp-card.wpp-status-connected {
+    border-left-color: var(--wpp-admin-success);
+}
+
+.wpp-card.wpp-status-disconnected {
+    border-left-color: var(--wpp-admin-danger);
+}
+
+.wpp-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.wpp-card-value {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.wpp-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.wpp-status-badge.wpp-connected {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--wpp-admin-success);
+}
+
+.wpp-status-badge.wpp-disconnected {
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--wpp-admin-danger);
+}
+
+.wpp-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.wpp-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #555;
+}
+
+.wpp-tab.wpp-active {
+    background: var(--wpp-admin-primary);
+    color: white;
+}
+
+.wpp-tab:hover:not(.wpp-active) {
+    background: rgba(0, 112, 186, 0.1);
+}
+
+.wpp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.wpp-table th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #eee;
+    color: #888;
+    font-weight: 600;
+}
+
+.wpp-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.wpp-form-group {
+    margin-bottom: 20px;
+}
+
+.wpp-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.wpp-form-group input, .wpp-form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: var(--wpp-admin-white);
+}
+
+.wpp-save-btn {
+    background: var(--wpp-admin-primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.wpp-save-btn:hover {
+    background: var(--wpp-admin-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 782px) {
+    .wpp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .wpp-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 5px;
+    }
+
+    .wpp-tab {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .wpp-card {
+        padding: 15px;
+    }
+
+    .wpp-card-value {
+        font-size: 24px;
+    }
+}
